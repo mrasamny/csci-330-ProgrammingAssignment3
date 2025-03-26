@@ -30,9 +30,11 @@ def send_file(filename: str, address: (str, int)):
 
     try:
         client_socket.connect(address)
+        input("Hit return to continue...")
         # send the file size in the first 8-bytes followed by the bytes
         # for the file name to server at (IP, PORT)
         client_socket.send(file_size + file_name.encode())
+        print(f'Sending {file_size + file_name.encode()}')
         data = client_socket.recv(BUFFER_SIZE)
         if data != b'go ahead':
             raise OSError('Bad server response - was not go ahead')
@@ -43,6 +45,7 @@ def send_file(filename: str, address: (str, int)):
             while not is_done:
                 chunk = file.read(BUFFER_SIZE)
                 if len(chunk) > 0:
+                    print(f'sending chunk of length {len(chunk)}')
                     client_socket.send(chunk)
                 else:
                     is_done = True
@@ -59,12 +62,11 @@ if __name__ == "__main__":
         sys.exit(1)
     file_name = sys.argv[1]  # filename from cmdline argument
     # if an IP address is provided on cmdline, then use it
-    if len(sys.argv) == 3:
+    if len(sys.argv) > 2:
         IP = sys.argv[2]
-
     try:
         # if port is provided on cmdline, then use it
-        if len(sys.argv) == 4:
+        if len(sys.argv) > 3:
             PORT = int(sys.argv[3])
     except ValueError as ve:
         print(ve)

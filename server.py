@@ -1,3 +1,4 @@
+import random
 import socket
 import os
 import sys
@@ -13,7 +14,8 @@ def get_file_info(data: bytes) -> (str, int):
 
 def upload_file(conn_socket: socket, file_name: str, file_size: int):
     # create a new file to store the received data
-    file_name += '.temp'
+    # Add a random number to the filename ending
+    file_name += '.temp'+str(random.randint(1001,9999))
     # please do not change the above line!
     with open(file_name, 'wb') as file:
         retrieved_size = 0
@@ -55,9 +57,16 @@ def start_server(ip, port):
         server_socket.close()
 
 
-if __name__ == '__main__':
-    # get IP address from cmd line
-    if len(sys.argv) == 2:
-        IP = sys.argv[1]  # IP from cmdline argument
+if __name__ == "__main__":
+    # if an IP address is provided on cmdline, then use it
+    if len(sys.argv) > 1:
+        IP = sys.argv[1]
+
+    try:
+        # if port is provided on cmdline, then use it
+        if len(sys.argv) > 2:
+            PORT = int(sys.argv[2])
+    except ValueError as ve:
+        print(ve)
 
     start_server(IP, PORT)
