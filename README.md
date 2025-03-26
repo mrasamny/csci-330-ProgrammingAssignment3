@@ -77,7 +77,7 @@ The function `service_client_connection` implements  steps 2 through 8 in the pr
 
 ## 5. Testing Your Implementation
 
-You can test your implementation by running the server and client on the same machine. Use the client from the previous project to test this multithreading server.  In case you did not complete the previous assignment, use the client provided with this assignment.  Since you know the client runs correctly, you can run multiple clients simultaneously.  To simulate this, place artificial pauses in your client that will allow you to test whether the server can handle several clients simultaneously, or **modify the client program to start up five simultaneous connection to the server**. The latter is something you should try.  I will inevitably 
+You can test your implementation by running the server and client on the same machine. Use the client from the previous project to test this multithreading server.  In case you did not complete the previous assignment, use the client provided with this assignment.  Since you know the client runs correctly, you can run multiple clients simultaneously.  To simulate this, place artificial pauses in your client that will allow you to test whether the server can handle several clients simultaneously.  The client provided with this assignment includes and input function call that pauses the client until the return key is pressed.  This will allow you to start several clients that connect with the server and wait for you to press the return key before transmitting the file. 
 
 ## 6. Submitting This Work
 
